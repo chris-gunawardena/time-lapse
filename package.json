@@ -17,7 +17,8 @@
     "passport": "~0.2.0",
     "passport-local": "~0.1.6",
     "jade": "~1.2.0",
-    "spooky": "~0.2.4"
+    "spooky": "~0.2.4",
+    "request": "~2.36.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
