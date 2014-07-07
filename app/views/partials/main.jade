@@ -1,26 +1,78 @@
 div(ng-include='\'partials/navbar\'')
 
 .jumbotron(ng-hide='currentUser')
-  h1
-    | Time-lapse for Agile 
-    span(ng-show='currentUser') {{ currentUser.name }}
-    | !
+	h1
+		| Time-lapse for Agile 
+		span(ng-show='currentUser') {{ currentUser.name }}
+		| !
 
-  p.lead
-    h4 Always a pleasure scaffolding your apps.
-  p
-    a.btn.btn-sm.btn-success(ng-href='#') Login
-    |  or 
-    a.btn.btn-sm.btn-success(ng-href='#') Signup
-    |  to create your JIRA timelapse
-.panel
-  .pannel-inner
-    x
+	p.lead
+		h4 Always a pleasure scaffolding your apps.
+	p
+		a.btn.btn-sm.btn-success(ng-href='#') Login
+		|  or 
+		a.btn.btn-sm.btn-success(ng-href='#') Signup
+		|  to create your JIRA timelapse
+
+button(type="button" class="btn btn-primary"  ng-click="add_project()") Add project
+
+.bs-component
+	.modal(ng-show='current_project')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button(type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_project()") ×
+					h4(class="modal-title") Add Project
+				.modal-body
+					form.form-horizontal
+						.form-group
+							label.col-sm-3.control-label(for='jira_url') JIRA URL
+							.col-sm-9
+								input#jira_url.form-control(type='text', ng-model='current_project.jira_url')
+						.form-group
+							label.col-sm-3.control-label(for='jira_username') JIRA Username
+							.col-sm-9
+								input#jira_username.form-control(type='text', ng-model='current_project.jira_username')
+						.form-group
+							label.col-sm-3.control-label(for='jira_password') JIRA Password
+							.col-sm-9
+								input#jira_password.form-control(type='text', ng-model='current_project.jira_password')
+				.modal-footer
+					button(type="button" class="btn btn-default" data-dismiss="modal") Close
+					button(type="button" class="btn btn-primary"  ng-click="save_project()") Save changes
+
+	h1 JIRA Projects
+	//.bs-component
+		ul.list-group
+			li.list-group-item(ng-repeat='project in projects' ng-click="open_project(project)") {{project.jira_url}} {{project.jira_username}} {{project.jira_password}}
+				span.badge(ng-click="delete_project(project)") x
+
+	div.well.well-sm(ng-repeat='project in projects' ng-click="open_project(project)")
+		div.row
+			//div.col-xs-3.col-md-3.text-center
+				img.img-rounded.img-responsive(src='http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png', alt='bootsnipp')
+			// div.col-xs-9.col-md-9.section-box
+			div.col-xs-12.section-box
+				h2
+					| Project Name
+				p
+					| Username: {{project.jira_username}} Password: {{project.jira_password}} 
+					a(href='{{project.jira_url}}', target='_blank') JIRA URL: {{project.jira_url}}
+				hr
+				div.row.rating-desc
+					div.col-md-12
+						span.glyphicon.glyphicon-film
+						a(href='/timelapse/{{project._id}}') View Time-lapse
+						
+
+
 
 .row.marketing
-  div(ng-repeat='thing in awesomeThings')
-    h4 {{thing.name}}
-    p {{thing.info}}
+	div(ng-repeat='thing in awesomeThings')
+		h4 {{thing.name}}
+		p {{thing.info}}
 
 .footer
-  p buit by Chris Gunawardena
+	p buit by Chris Gunawardena
+
+
