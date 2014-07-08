@@ -6,22 +6,18 @@ div(ng-include='\'partials/navbar\'')
 		span(ng-show='currentUser') {{ currentUser.name }}
 		| !
 
-	p.lead
-		h4 Always a pleasure scaffolding your apps.
 	p
 		a.btn.btn-sm.btn-success(ng-href='#') Login
 		|  or 
 		a.btn.btn-sm.btn-success(ng-href='#') Signup
 		|  to create your JIRA timelapse
 
-
-
 .bs-component(ng-show='currentUser')
 	.modal(ng-show='current_project')
 		.modal-dialog
 			.modal-content
 				.modal-header
-					button(type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_project()") ×
+					button.close(type="button" data-dismiss="modal" aria-hidden="true" ng-click="close_project()") ×
 					h4(class="modal-title") Add Project
 				.modal-body
 					form.form-horizontal
@@ -42,8 +38,8 @@ div(ng-include='\'partials/navbar\'')
 							.col-sm-9
 								input#jira_password.form-control(type='text', ng-model='current_project.jira_password')
 				.modal-footer
-					button(type="button" class="btn btn-default" data-dismiss="modal" ng-click="close_project()") Close
-					button(type="button" class="btn btn-primary"  ng-click="save_project()") Save changes
+					button.btn.btn-default(type="button" data-dismiss="modal" ng-click="close_project()") Close
+					button.btn.btn-primary(type="button" ng-click="save_project()") Save changes
 
 	h1 Projects
 		button.btn.btn-success.pull-right(type="button"  ng-click="add_project()") Add project
@@ -71,6 +67,8 @@ div(ng-include='\'partials/navbar\'')
 					div
 						strong JIRA URL: 
 						a(href='{{project.jira_url}}', target='_blank') {{project.jira_url}}
+
+						a(href='/api/projects/take_screenshot/{{project._id}}', target='_blank') take_screenshot
 				hr
 				div.row.rating-desc
 					div.col-md-12

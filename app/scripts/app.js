@@ -20,6 +20,11 @@ angular.module('jiraTimeLapseApp', [
         templateUrl: 'partials/signup',
         controller: 'SignupCtrl'
       })
+      .when('/timelapse/:project_id', {
+        templateUrl: 'partials/timelapse',
+        controller: 'TimelapseCtrl',
+        authenticate: true
+      })
       .when('/settings', {
         templateUrl: 'partials/settings',
         controller: 'SettingsCtrl',
