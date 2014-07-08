@@ -1,7 +1,7 @@
 div(ng-include='\'partials/navbar\'')
 
-.jumbotron(ng-hide='currentUser')
-	h1
+.well(ng-hide='currentUser')
+	h2
 		| Time-lapse for Agile 
 		span(ng-show='currentUser') {{ currentUser.name }}
 		| !
@@ -10,7 +10,7 @@ div(ng-include='\'partials/navbar\'')
 		a.btn.btn-sm.btn-success(ng-href='#') Login
 		|  or 
 		a.btn.btn-sm.btn-success(ng-href='#') Signup
-		|  to create your JIRA timelapse
+		|  to create your time-lapse
 
 .bs-component(ng-show='currentUser')
 	.modal(ng-show='current_project')
@@ -41,22 +41,17 @@ div(ng-include='\'partials/navbar\'')
 					button.btn.btn-default(type="button" data-dismiss="modal" ng-click="close_project()") Close
 					button.btn.btn-primary(type="button" ng-click="save_project()") Save changes
 
-	h1 Projects
+	h2.text-muted  Projects
 		button.btn.btn-success.pull-right(type="button"  ng-click="add_project()") Add project
-	//.bs-component
-		ul.list-group
-			li.list-group-item(ng-repeat='project in projects' ng-click="open_project(project)") {{project.jira_url}} {{project.jira_username}} {{project.jira_password}}
-				span.badge(ng-click="delete_project(project)") x
-
 	div.well.well-sm(ng-repeat='project in projects')
 		div.row
-			//div.col-xs-3.col-md-3.text-center
-				img.img-rounded.img-responsive(src='http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png', alt='bootsnipp')
-			// div.col-xs-9.col-md-9.section-box
-			div.col-xs-12.section-box
-				span.label.label-danger.pull-right(ng-click="delete_project(project)") Delete 
-				span.label.label-warning.pull-right(ng-click="open_project(project)") Edit 
-				h2
+			div.col-xs-3.text-center(ng-show='project.screenshots[0].image')
+				br
+				img.img-rounded.img-responsive(src='{{project.screenshots[0].image}}', alt='bootsnipp')
+			div.section-box(ng-class="{'col-xs-9':project.screenshots[0].image, 'col-xs-12':!project.screenshots[0].image}")
+				button.btn.btn-danger.btn-xs.pull-right(ng-click="delete_project(project)") Delete 
+				button.btn.btn-warning.btn-xs.pull-right(ng-click="open_project(project)") Edit 
+				h3
 					| {{project.project_name}} 
 				p
 					div 
@@ -68,14 +63,16 @@ div(ng-include='\'partials/navbar\'')
 					div
 						strong JIRA URL: 
 						a(href='{{project.jira_url}}', target='_blank') {{project.jira_url}}
-
-						a(href='/api/projects/take_screenshot/{{project._id}}', target='_blank') take_screenshot
 				hr
 				div.row.rating-desc
 					div.col-md-12
-						span.glyphicon.glyphicon-film
-						a(href='/timelapse/{{project._id}}') View Time-lapse
+						a.btn.btn-info.btn-sm(href='/timelapse/{{project._id}}', target='_blank') 
+							span.glyphicon.glyphicon-play-circle
+							| View Time-lapse
+						//| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						//span.glyphicon.glyphicon-camera
+						//a(href='/api/projects/take_screenshot/{{project._id}}', target='_blank') take_screenshot
 .footer
-	p buit by Chris Gunawardena
+	p built by Chris Gunawardena
 
 

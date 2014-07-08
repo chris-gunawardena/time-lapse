@@ -34,7 +34,7 @@ angular.module('jiraTimeLapseApp')
 			project_name: '',
 			jira_url: 'https://aw2xcd.atlassian.net/secure/RapidBoard.jspa?rapidView=1', 
 			jira_username: 'aw2xcd', 
-			jira_password: 'choppay170' 
+			jira_password: 'abcd1234' 
 		};
 	};
 	$scope.open_project = function(project){

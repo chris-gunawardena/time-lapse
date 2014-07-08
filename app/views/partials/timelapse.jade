@@ -1,6 +1,11 @@
 
 
 .container
-	img.img-responsive(ng-repeat="image in project.screenshots" src="{{image}}")
-
-
+	h3 {{project.project_name}}
+	div
+		div
+			carousel(interval='interval')
+				slide(ng-repeat='slide in slides', active='slide.active')
+					img(ng-src='{{slide.image}}', style='margin: auto;')
+					.carousel-caption
+						p {{slide.text}}
