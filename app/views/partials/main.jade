@@ -48,13 +48,14 @@ div(ng-include='\'partials/navbar\'')
 			li.list-group-item(ng-repeat='project in projects' ng-click="open_project(project)") {{project.jira_url}} {{project.jira_username}} {{project.jira_password}}
 				span.badge(ng-click="delete_project(project)") x
 
-	div.well.well-sm(ng-repeat='project in projects' ng-click="open_project(project)")
+	div.well.well-sm(ng-repeat='project in projects')
 		div.row
 			//div.col-xs-3.col-md-3.text-center
 				img.img-rounded.img-responsive(src='http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png', alt='bootsnipp')
 			// div.col-xs-9.col-md-9.section-box
 			div.col-xs-12.section-box
-				span.label.label-danger.pull-right(ng-click="delete_project(project)") Delete
+				span.label.label-danger.pull-right(ng-click="delete_project(project)") Delete 
+				span.label.label-warning.pull-right(ng-click="open_project(project)") Edit 
 				h2
 					| {{project.project_name}} 
 				p
