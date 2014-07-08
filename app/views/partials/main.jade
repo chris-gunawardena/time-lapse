@@ -14,9 +14,9 @@ div(ng-include='\'partials/navbar\'')
 		a.btn.btn-sm.btn-success(ng-href='#') Signup
 		|  to create your JIRA timelapse
 
-button(type="button" class="btn btn-primary"  ng-click="add_project()") Add project
 
-.bs-component
+
+.bs-component(ng-show='currentUser')
 	.modal(ng-show='current_project')
 		.modal-dialog
 			.modal-content
@@ -25,6 +25,10 @@ button(type="button" class="btn btn-primary"  ng-click="add_project()") Add proj
 					h4(class="modal-title") Add Project
 				.modal-body
 					form.form-horizontal
+						.form-group
+							label.col-sm-3.control-label(for='project_name') Project Name
+							.col-sm-9
+								input#project_name.form-control(type='text', ng-model='current_project.project_name')
 						.form-group
 							label.col-sm-3.control-label(for='jira_url') JIRA URL
 							.col-sm-9
@@ -38,10 +42,11 @@ button(type="button" class="btn btn-primary"  ng-click="add_project()") Add proj
 							.col-sm-9
 								input#jira_password.form-control(type='text', ng-model='current_project.jira_password')
 				.modal-footer
-					button(type="button" class="btn btn-default" data-dismiss="modal") Close
+					button(type="button" class="btn btn-default" data-dismiss="modal" ng-click="close_project()") Close
 					button(type="button" class="btn btn-primary"  ng-click="save_project()") Save changes
 
-	h1 JIRA Projects
+	h1 Projects
+		button.btn.btn-success.pull-right(type="button"  ng-click="add_project()") Add project
 	//.bs-component
 		ul.list-group
 			li.list-group-item(ng-repeat='project in projects' ng-click="open_project(project)") {{project.jira_url}} {{project.jira_username}} {{project.jira_password}}
@@ -53,25 +58,24 @@ button(type="button" class="btn btn-primary"  ng-click="add_project()") Add proj
 				img.img-rounded.img-responsive(src='http://bootsnipp.com/apple-touch-icon-114x114-precomposed.png', alt='bootsnipp')
 			// div.col-xs-9.col-md-9.section-box
 			div.col-xs-12.section-box
+				span.label.label-danger.pull-right(ng-click="delete_project(project)") Delete
 				h2
-					| Project Name
+					| {{project.project_name}} 
 				p
-					| Username: {{project.jira_username}} Password: {{project.jira_password}} 
-					a(href='{{project.jira_url}}', target='_blank') JIRA URL: {{project.jira_url}}
+					div 
+						strong Username: 
+						| {{project.jira_username}} 
+					div 
+						strong Password: 
+						|	{{project.jira_password}} 
+					div
+						strong JIRA URL: 
+						a(href='{{project.jira_url}}', target='_blank') {{project.jira_url}}
 				hr
 				div.row.rating-desc
 					div.col-md-12
 						span.glyphicon.glyphicon-film
 						a(href='/timelapse/{{project._id}}') View Time-lapse
-						
-
-
-
-.row.marketing
-	div(ng-repeat='thing in awesomeThings')
-		h4 {{thing.name}}
-		p {{thing.info}}
-
 .footer
 	p buit by Chris Gunawardena
 

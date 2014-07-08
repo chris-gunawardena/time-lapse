@@ -30,7 +30,12 @@ angular.module('jiraTimeLapseApp')
 	};
 
 	$scope.add_project = function(){
-		$scope.current_project = { jira_url: 'xxx', jira_username: 'abc', jira_password: '123' };
+		$scope.current_project = {
+			project_name: '',
+			jira_url: 'https://aw2xcd.atlassian.net/secure/RapidBoard.jspa?rapidView=1', 
+			jira_username: 'aw2xcd', 
+			jira_password: 'choppay170' 
+		};
 	};
 	$scope.open_project = function(project){
 		$scope.current_project = project;
@@ -45,6 +50,7 @@ angular.module('jiraTimeLapseApp')
 				load_projects();
 			});
 		}
+		$scope.current_project = false;
 		//return false;
 	};
 });
