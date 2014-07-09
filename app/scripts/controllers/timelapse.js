@@ -4,8 +4,8 @@ var not_camel_case = 2;
 angular.module('jiraTimeLapseApp')
 .controller('TimelapseCtrl', function ($scope, $http, $routeParams) {
 
-	var start_date = new Date('2014-07-08');
-	var end_date = new Date('2014-07-10');
+	var start_date = new Date('2014-06-08');
+	var end_date = new Date('2014-08-10');
 	var work_week = [1,2,3,4,5];
 	var start_time = 8;//hours
 	var end_time = 18;//hours
@@ -17,9 +17,9 @@ angular.module('jiraTimeLapseApp')
 		$scope.project = project;
 		for( var i=0; i<project.screenshots.length; i++ )
 		{	var screenshoot_date = new Date( project.screenshots[i].text );
-			if	(	start_date.getTime()<=screenshoot_date.getTime() && end_date.getTime()<=screenshoot_date.getTime() && //within date range
-					work_week.indexOf( screenshoot_date.getDay() ) && //in the work week
-					start_time<=screenshoot_date.getHours() && end_time<=screenshoot_date.getHours() //within work hours
+			if	(	start_date.getTime()<=screenshoot_date.getTime() && screenshoot_date.getTime()<=end_date.getTime() //within date range
+					&& work_week.indexOf( screenshoot_date.getDay() ) //in the work week
+					&& start_time<=screenshoot_date.getHours() && end_time<=screenshoot_date.getHours() //within work hours
 				)
 			{
 				$scope.slides.push( project.screenshots[i] );
