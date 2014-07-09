@@ -8,4 +8,4 @@
 				slide(ng-repeat='slide in slides', active='slide.active')
 					img(ng-src='{{slide.image}}', style='margin: auto;')
 					.carousel-caption
-						p {{slide.text}}
+						p {{slide.text|format_datetime}}

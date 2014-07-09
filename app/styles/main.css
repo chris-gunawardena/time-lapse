@@ -88,13 +88,45 @@ body {
 }
 
 
+.carousel .carousel-inner .item {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel .carousel-inner .active {
+  opacity: 1;
+}
+.carousel .carousel-inner .active.left,
+.carousel .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+.carousel .carousel-inner .next.left,
+.carousel .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel .carousel-control {
+  z-index: 2;
+}
 
 
+.carousel-indicators {
+  top: -18px;
+  right: -25px;
+  left: initial;
+}
 
-
-
-
-
+.carousel-caption {
+  top: -60px;
+  right: -25px;
+  left: initial;
+}
+.week{
+  
+}
 
 .glyphicon { margin-right:5px;}
 .section-box h2 { margin-top:0px;}

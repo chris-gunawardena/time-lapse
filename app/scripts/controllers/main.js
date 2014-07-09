@@ -1,4 +1,5 @@
 'use strict';
+var not_camel_case = 2;
 
 angular.module('jiraTimeLapseApp')
 .controller('MainCtrl', function ($scope, $http) {
