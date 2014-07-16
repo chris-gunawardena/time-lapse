@@ -94,6 +94,11 @@ body {
   -moz-transition-property: opacity;
   -o-transition-property: opacity;
   transition-property: opacity;
+
+  -webkit-transition-duration: .001s;
+  -moz-transition-property: .001s;
+  -o-transition-property: .001s;
+  transition-duration: .001s;
 }
 .carousel .carousel-inner .active {
   opacity: 1;
@@ -109,7 +114,7 @@ body {
   opacity: 1;
 }
 .carousel .carousel-control {
-  z-index: 2;
+  z-index: 9999;
 }
 
 
@@ -120,8 +125,8 @@ body {
 }
 
 .carousel-caption {
-  top: -60px;
-  right: -25px;
+  top: -10px;
+  right: 10px;
   left: initial;
 }
 .week{
@@ -135,3 +140,5 @@ body {
 .glyphicon-comment { color:#27ae60;}
 .separator { padding-right:5px;padding-left:5px; }
 .section-box hr {margin-top: 0;margin-bottom: 5px;border: 0;border-top: 1px solid rgb(199, 199, 199);}
+
+
