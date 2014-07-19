@@ -4,7 +4,7 @@
 angular.module('jiraTimeLapseApp')
 .controller('TimelapseCtrl', function ($scope, $http, $routeParams) {
 
-	var project_start_date = new Date('2014-06-08');
+	var project_start_date = new Date('2014-05-26');
 	var sprint_length = 14;//days
 	var work_week = [1,2,3,4,5];//0=sunday
 	var start_time = 8;//hours
@@ -12,21 +12,24 @@ angular.module('jiraTimeLapseApp')
 
 	$scope.interval = 2500;
 	$scope.slides = [];
+	$scope.slides_array = {};
+	$scope.slides_array[ 'View all' ] = [];
 
 	$http.get( '/api/projects/'+$routeParams.project_id ).success( function(project) {
 		$scope.project = project;
 		for( var i=0; i<project.screenshots.length; i++ )
 		{	var screenshoot_date = new Date( project.screenshots[i].text );
-			/*if	(	project_start_date.getTime()<=screenshoot_date.getTime() && screenshoot_date.getTime()<=end_date.getTime() //within date range
-					&& work_week.indexOf( screenshoot_date.getDay() ) //in the work week
-					&& start_time<=screenshoot_date.getHours() && end_time<=screenshoot_date.getHours() //within work hours
-				)
-			{
-				$scope.slides.push( project.screenshots[i] );
-			}*/
-			$scope.slides.push( project.screenshots[i] );
+			var days_since_project_start = Math.ceil( (screenshoot_date.getTime() - project_start_date.getTime() ) / (24*60*60*1000) );
+			var sprint = Math.ceil( days_since_project_start/sprint_length );
+
+			if(	work_week.indexOf(screenshoot_date.getDay()) != -1   &&   start_time<=screenshoot_date.getHours() && screenshoot_date.getHours()<=end_time ) //in the work week 
+			{	$scope.slides_array[ 'Sprint '+sprint ] = $scope.slides_array[ 'Sprint '+sprint ] || [];//Create array if none exits
+				$scope.slides_array[ 'Sprint '+sprint ].push( project.screenshots[i] );//add to proper spint
+				$scope.slides_array[ 'View all' ].push( project.screenshots[i] );//add to all as well
+			}
 		}
-		//$scope.slides = project.screenshots;
+		$scope.slides = $scope.slides_array['View all'];
+		console.log( $scope.slides_array );
 	});
 
 }).filter('format_datetime', function() {

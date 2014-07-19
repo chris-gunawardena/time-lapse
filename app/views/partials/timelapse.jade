@@ -3,9 +3,12 @@
 .container
 	h3 {{project.project_name}}
 	div
+		a(ng-repeat='(sprint,screenshots) in slides_array' ng-click="$parent.slides = $parent.slides_array[sprint]") {{sprint}} &nbsp;&nbsp;&nbsp;
 		div
 			carousel(interval='interval')
 				slide(ng-repeat='slide in slides', active='slide.active')
 					img(ng-src='{{slide.image}}', style='margin: auto;')
 					.carousel-caption
 						p {{slide.text|format_datetime}}
+
+	{{slides}}
