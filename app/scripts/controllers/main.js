@@ -34,9 +34,15 @@ angular.module('jiraTimeLapseApp')
 	$scope.add_project = function(){
 		$scope.current_project = {
 			project_name: '',
-			jira_url: 'https://aw2xcd.atlassian.net/secure/RapidBoard.jspa?rapidView=1',
-			jira_username: 'aw2xcd',
-			jira_password: 'abcd1234'
+			jira_url: '',
+			jira_username: '',
+			jira_password: '',
+			project_start_date: '2014-07-01',
+			sprint_length: 14,
+			work_week: [false,true,true,true,true,true,false],
+			start_time: 8,
+			end_time: 18,
+			interval: 2500
 		};
 	};
 	$scope.open_project = function(project){
@@ -54,5 +60,12 @@ angular.module('jiraTimeLapseApp')
 		}
 		$scope.current_project = false;
 		//return false;
+	};
+}).filter('format_date', function() {
+	return function(input_date) {
+		var days_of_week = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+		var months_of_year = [ 'Jan', 'Feb', 'Mar', 'Apr', 'may', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+		input_date = new Date(input_date);
+		return days_of_week[input_date.getDay()]+', '+input_date.getDate()+' '+months_of_year[input_date.getMonth()]+' '+input_date.getFullYear();
 	};
 });

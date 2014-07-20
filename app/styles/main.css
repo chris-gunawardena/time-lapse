@@ -117,17 +117,30 @@ body {
   z-index: 9999;
 }
 
-
-.carousel-indicators {
-  top: -18px;
-  right: -25px;
-  left: initial;
+@media (min-width: 768px){
+  .container {
+    max-width: initial;
+  }
 }
-
+.carousel-indicators {
+  top: -75px;
+  right: 0px;
+  left: auto;
+  height: 50px;
+  width: 100%;
+  opacity: 0.5;
+}
+.carousel-indicators li {
+  width: 2px;
+}
 .carousel-caption {
-  top: -10px;
-  right: 10px;
-  left: initial;
+top: 0px;
+right: 0px;
+left: initial;
+background: rgba(0,0,0,0.5);
+height: 30px;
+padding: 5px 10px;
+font-size: 11px;
 }
 .week{
   

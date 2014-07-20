@@ -28,15 +28,62 @@ div(ng-include='\'partials/navbar\'')
 						.form-group
 							label.col-sm-3.control-label(for='jira_url') JIRA URL
 							.col-sm-9
-								input#jira_url.form-control(type='text', ng-model='current_project.jira_url')
+								input#jira_url.form-control(type='text', ng-model='current_project.jira_url' placeholder='URL of the page you want to capture')
 						.form-group
 							label.col-sm-3.control-label(for='jira_username') JIRA Username
 							.col-sm-9
-								input#jira_username.form-control(type='text', ng-model='current_project.jira_username')
+								input#jira_username.form-control(type='text', ng-model='current_project.jira_username' placeholder='Leave blank for public urls')
 						.form-group
 							label.col-sm-3.control-label(for='jira_password') JIRA Password
 							.col-sm-9
-								input#jira_password.form-control(type='text', ng-model='current_project.jira_password')
+								input#jira_password.form-control(type='text', ng-model='current_project.jira_password' placeholder='Leave blank for public urls')
+
+						.form-group
+							label.col-sm-3.control-label(for='project_start_date') Project start date
+							.col-sm-9
+								input#project_start_date.form-control(type='text', ng-model='current_project.project_start_date' placeholder='YYYY-MM-DD')
+						.form-group
+							label.col-sm-3.control-label(for='sprint_length') Sprint length (days)
+							.col-sm-9
+								input#sprint_length.form-control(type='text', ng-model='current_project.sprint_length')
+						.form-group
+							label.col-sm-3.control-label Work days
+							.col-sm-9
+								label.checkbox-inline
+									input(type='checkbox' ng-model='current_project.work_week[0]')
+									| Sun 
+								label.checkbox-inline
+									input(type='checkbox' ng-model='current_project.work_week[1]')
+									| Mon
+								label.checkbox-inline
+									input(type='checkbox' ng-model='current_project.work_week[2]')
+									| Tue
+								label.checkbox-inline
+									input(type='checkbox' ng-model='current_project.work_week[3]')
+									| Wed
+								label.checkbox-inline
+									input(type='checkbox' ng-model='current_project.work_week[4]')
+									| Thu
+								label.checkbox-inline
+									input(type='checkbox' ng-model='current_project.work_week[5]')
+									| Fri
+								label.checkbox-inline
+									input(type='checkbox' ng-model='current_project.work_week[6]')
+									| Sat
+								//input#work_week.form-control(type='text', ng-model='current_project.work_week')
+						.form-group
+							label.col-sm-3.control-label(for='start_time') Start time
+							.col-sm-9
+								input#start_time.form-control(type='text', ng-model='current_project.start_time'  placeholder='HH (24 Hour format)')
+						.form-group
+							label.col-sm-3.control-label(for='end_time') End time
+							.col-sm-9
+								input#end_time.form-control(type='text', ng-model='current_project.end_time'  placeholder='HH (24 Hour format)')
+						.form-group
+							label.col-sm-3.control-label(for='interval') Slider interval (ms)
+							.col-sm-9
+								input#interval.form-control(type='text', ng-model='current_project.interval')
+
 				.modal-footer
 					button.btn.btn-default(type="button" data-dismiss="modal" ng-click="close_project()") Close
 					button.btn.btn-primary(type="button" ng-click="save_project()") Save changes
@@ -54,15 +101,15 @@ div(ng-include='\'partials/navbar\'')
 				h3
 					| {{project.project_name}} 
 				p
-					div 
-						strong Username: 
-						| {{project.jira_username}} 
-					div 
-						strong Password: 
-						|	{{project.jira_password}} 
 					div
 						strong JIRA URL: 
 						a(href='{{project.jira_url}}', target='_blank') {{project.jira_url}}
+					div 
+						strong Project start date: 
+						|	{{project.project_start_date|format_date}} 
+					div 
+						strong Start time / end time: 
+						|	{{project.start_time}}:00 to {{project.end_time}}:00
 				hr
 				div.row.rating-desc
 					div.col-md-12

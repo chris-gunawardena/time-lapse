@@ -4,25 +4,21 @@
 angular.module('jiraTimeLapseApp')
 .controller('TimelapseCtrl', function ($scope, $http, $routeParams) {
 
-	var project_start_date = new Date('2014-05-26');
-	var sprint_length = 14;//days
-	var work_week = [1,2,3,4,5];//0=sunday
-	var start_time = 8;//hours
-	var end_time = 18;//hours
+	var work_week = [0,1,2,3,4,5,6];//0=sunday
 
-	$scope.interval = 2500;
 	$scope.slides = [];
 	$scope.slides_array = {};
 	$scope.slides_array[ 'View all' ] = [];
 
 	$http.get( '/api/projects/'+$routeParams.project_id ).success( function(project) {
 		$scope.project = project;
+		$scope.interval = project.interval || 2500;
 		for( var i=0; i<project.screenshots.length; i++ )
 		{	var screenshoot_date = new Date( project.screenshots[i].text );
-			var days_since_project_start = Math.ceil( (screenshoot_date.getTime() - project_start_date.getTime() ) / (24*60*60*1000) );
-			var sprint = Math.ceil( days_since_project_start/sprint_length );
+			var days_since_project_start = Math.ceil( (screenshoot_date.getTime() - new Date( project.project_start_date ).getTime() ) / (24*60*60*1000) );
+			var sprint = Math.ceil( days_since_project_start/project.sprint_length );
 
-			if(	work_week.indexOf(screenshoot_date.getDay()) != -1   &&   start_time<=screenshoot_date.getHours() && screenshoot_date.getHours()<=end_time ) //in the work week 
+			if(	project.work_week[ screenshoot_date.getDay() ]   &&   project.start_time<=screenshoot_date.getHours() && screenshoot_date.getHours()<=project.end_time ) 
 			{	$scope.slides_array[ 'Sprint '+sprint ] = $scope.slides_array[ 'Sprint '+sprint ] || [];//Create array if none exits
 				$scope.slides_array[ 'Sprint '+sprint ].push( project.screenshots[i] );//add to proper spint
 				$scope.slides_array[ 'View all' ].push( project.screenshots[i] );//add to all as well
