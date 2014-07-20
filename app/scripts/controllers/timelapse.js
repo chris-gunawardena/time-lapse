@@ -11,21 +11,24 @@ angular.module('jiraTimeLapseApp')
 	$scope.slides_array[ 'View all' ] = [];
 
 	$http.get( '/api/projects/'+$routeParams.project_id ).success( function(project) {
+
 		$scope.project = project;
 		$scope.interval = project.interval || 2500;
+
 		for( var i=0; i<project.screenshots.length; i++ )
 		{	var screenshoot_date = new Date( project.screenshots[i].text );
 			var days_since_project_start = Math.ceil( (screenshoot_date.getTime() - new Date( project.project_start_date ).getTime() ) / (24*60*60*1000) );
 			var sprint = Math.ceil( days_since_project_start/project.sprint_length );
 
+			//only add to slder if its in in a work day, between work hours
 			if(	project.work_week[ screenshoot_date.getDay() ]   &&   project.start_time<=screenshoot_date.getHours() && screenshoot_date.getHours()<=project.end_time ) 
-			{	$scope.slides_array[ 'Sprint '+sprint ] = $scope.slides_array[ 'Sprint '+sprint ] || [];//Create array if none exits
-				$scope.slides_array[ 'Sprint '+sprint ].push( project.screenshots[i] );//add to proper spint
+			{	$scope.slides_array[ 'Sprint '+('0'+sprint).slice(-2) ] = $scope.slides_array[ 'Sprint '+sprint ] || [];//Create array if none exits
+				$scope.slides_array[ 'Sprint '+('0'+sprint).slice(-2) ].push( project.screenshots[i] );//add to proper spint
 				$scope.slides_array[ 'View all' ].push( project.screenshots[i] );//add to all as well
 			}
 		}
-		$scope.slides = $scope.slides_array['View all'];
-		console.log( $scope.slides_array );
+		//dsp the last sprint
+		$scope.slides = $scope.slides_array[ Object.keys($scope.slides_array).pop() ];
 	});
 
 }).filter('format_datetime', function() {
