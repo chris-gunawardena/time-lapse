@@ -91,7 +91,7 @@ div(ng-include='\'partials/navbar\'')
 	h2.text-muted  Projects
 		button.btn.btn-success.pull-right(type="button"  ng-click="add_project()") Add project
 	div.well.well-sm(ng-repeat='project in projects')
-		div.row
+		div.row.project
 			div.col-xs-3.text-center(ng-show='project.screenshots[0].image')
 				br
 				img.img-rounded.img-responsive(src='{{project.screenshots[0].image}}', alt='bootsnipp')
