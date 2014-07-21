@@ -13,7 +13,8 @@ angular.module('jiraTimeLapseApp')
 	$http.get( '/api/projects/'+$routeParams.project_id ).success( function(project) {
 
 		$scope.project = project;
-		$scope.interval = project.interval || 2500;
+		//$scope.interval = project.interval || 2500;
+		$scope.interval = 500;
 
 		for( var i=0; i<project.screenshots.length; i++ )
 		{	var screenshoot_date = new Date( project.screenshots[i].text );
@@ -22,7 +23,7 @@ angular.module('jiraTimeLapseApp')
 
 			//only add to slder if its in in a work day, between work hours
 			if(	project.work_week[ screenshoot_date.getDay() ]   &&   project.start_time<=screenshoot_date.getHours() && screenshoot_date.getHours()<=project.end_time ) 
-			{	$scope.slides_array[ 'Sprint '+('0'+sprint).slice(-2) ] = $scope.slides_array[ 'Sprint '+sprint ] || [];//Create array if none exits
+			{	$scope.slides_array[ 'Sprint '+('0'+sprint).slice(-2) ] = $scope.slides_array[ 'Sprint '+('0'+sprint).slice(-2) ] || [];//Create array if none exits
 				$scope.slides_array[ 'Sprint '+('0'+sprint).slice(-2) ].push( project.screenshots[i] );//add to proper spint
 				$scope.slides_array[ 'View all' ].push( project.screenshots[i] );//add to all as well
 			}
