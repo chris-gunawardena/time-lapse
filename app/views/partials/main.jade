@@ -7,9 +7,9 @@ div(ng-include='\'partials/navbar\'')
 		| !
 
 	p
-		a.btn.btn-sm.btn-success(ng-href='#') Login
+		a.btn.btn-sm.btn-success(ng-href='/login') Login
 		|  or 
-		a.btn.btn-sm.btn-success(ng-href='#') Signup
+		a.btn.btn-sm.btn-success(ng-href='/signup') Signup
 		|  to create your time-lapse
 
 .bs-component(ng-show='currentUser')
@@ -36,7 +36,7 @@ div(ng-include='\'partials/navbar\'')
 						.form-group
 							label.col-sm-3.control-label(for='jira_password') JIRA Password
 							.col-sm-9
-								input#jira_password.form-control(type='text', ng-model='current_project.jira_password' placeholder='Leave blank for public urls')
+								input#jira_password.form-control(type='password', ng-model='current_project.jira_password' placeholder='Leave blank for public urls')
 
 						.form-group
 							label.col-sm-3.control-label(for='project_start_date') Project start date
